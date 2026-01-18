@@ -3,14 +3,10 @@ import { message } from 'antd'
 import { TOKEN_KEY } from '../base/constants'
 import { ApiResponse } from './types'
 
-const HOST_STORAGE_KEY = 'kamanote_host'
-
 // 创建axios实例，并指定响应数据类型为 ApiResponse
+// Docker 环境下使用相对路径，通过 nginx 代理访问后端
 export const http = axios.create({
-  baseURL:
-    localStorage.getItem(HOST_STORAGE_KEY) ||
-    import.meta.env.VITE_API_BASE_URL ||
-    'http://localhost:8080',
+  baseURL: import.meta.env.VITE_API_BASE_URL || '', // 使用相对路径，通过 nginx 代理
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

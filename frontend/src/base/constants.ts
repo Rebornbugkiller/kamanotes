@@ -2,8 +2,5 @@
 export const TOKEN_KEY = 'token'
 export const kamanoteUserToken = TOKEN_KEY
 
-// API Host
-export const kamanoteHost =
-  import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
-
-// 其他常量...
+// 重新导出 constants/index.ts 中的常量以保持向后兼容
+export { kamanoteHost, kamanoteTheme } from './constants/index'

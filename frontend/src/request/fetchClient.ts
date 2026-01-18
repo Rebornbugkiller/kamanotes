@@ -2,7 +2,7 @@ import { Code, HttpClient, Options, RequestTuple, Response } from './types.ts'
 import { kamanoteUserToken } from '../base/constants'
 
 export default class FetchClient implements HttpClient {
-  private readonly baseURL = import.meta.env.VITE_API_BASE_URL
+  private readonly baseURL = import.meta.env.VITE_API_BASE_URL || ''
   constructor() {}
 
   // 处理路径参数

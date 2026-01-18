@@ -117,7 +117,7 @@ const UserInfoForm: React.FC = () => {
         <ImgCrop rotationSlider>
           <Upload
             action={() => {
-              return import.meta.env.VITE_API_BASE_URL + '/api/users/avatar'
+              return (import.meta.env.VITE_API_BASE_URL || '') + '/api/users/avatar'
             }}
             onChange={uploadAvatarHandle}
             onPreview={onPreview}

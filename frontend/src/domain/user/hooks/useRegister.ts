@@ -5,7 +5,7 @@ import { login } from '../../../store/appSlice.ts'
 import { message } from 'antd'
 import { kamanoteUserToken } from '../../../base/constants'
 import { setUser } from '../../../store/userSlice.ts'
-import type { UserEntity } from '../types/types.ts'
+import type { UserState } from '../types/types.ts'
 
 export function useRegister() {
   // 注册请求函数
@@ -27,7 +27,7 @@ export function useRegister() {
           setUser({
             ...data,
             ...registerBody,
-          } as UserEntity),
+          } as unknown as UserState),
         )
         // 设置登录状态
         dispatch(login())

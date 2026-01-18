@@ -11,6 +11,12 @@ enum TargetType {
   COMMENT = 2,
 }
 
+export interface MessageQueryParams {
+  page?: number
+  pageSize?: number
+  isRead?: boolean
+}
+
 export interface Message {
   messageId: number
   sender: {

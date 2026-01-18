@@ -1,0 +1,49 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://mysql:3306/kamanote_tech?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai}
+    username: ${SPRING_DATASOURCE_USERNAME:kamanotes}
+    password: ${SPRING_DATASOURCE_PASSWORD:kamanotes123}
+  redis:
+    host: ${SPRING_REDIS_HOST:redis}
+    port: ${SPRING_REDIS_PORT:6379}
+    database: 0
+    timeout: 2000
+    jedis:
+      pool:
+        enabled: on
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+        max-wait: 2000
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username: 2690412438@qq.com
+    password: dmsiwfhptefmdffi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+    protocol: smtps
+    default-encoding: UTF-8
+
+jwt:
+  secret: ${JWT_SECRET:abc123}
+  expiration: 2592000
+
+upload:
+  path: ${UPLOAD_PATH:/app/uploads}
+  url-prefix: ${UPLOAD_URL_PREFIX:http://localhost:8080/images}
+
+# 日志级别调整为生产环境
+logging:
+  level:
+    root: INFO
+    com.kama.notes: INFO
+    org.mybatis: WARN

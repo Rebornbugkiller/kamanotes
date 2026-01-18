@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Avatar, Button, Input, List, message } from 'antd'
 import {
   createComment,
@@ -18,13 +18,15 @@ export function NoteComments({ noteId }: NoteCommentsProps) {
   const [comments, setComments] = useState<NoteComment[]>([])
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
-  const { currentUser } = useUser()
+  const currentUser = useUser()
 
   // 加载评论列表
   const loadComments = async () => {
     try {
-      const { data } = await getComments(noteId)
-      setComments(data)
+      const resp = await getComments({ noteId })
+      if (resp?.data?.data) {
+        setComments(resp.data.data)
+      }
     } catch (error) {
       message.error('加载评论失败')
     }
@@ -32,7 +34,7 @@ export function NoteComments({ noteId }: NoteCommentsProps) {
 
   // 提交评论
   const handleSubmit = async () => {
-    if (!currentUser) {
+    if (!currentUser?.userId) {
       message.warning('请先登录')
       return
     }
@@ -44,7 +46,7 @@ export function NoteComments({ noteId }: NoteCommentsProps) {
 
     setLoading(true)
     try {
-      await createComment(noteId, content.trim())
+      await createComment({ noteId, content: content.trim() })
       message.success('评论成功')
       setContent('')
       loadComments()
@@ -98,7 +100,7 @@ export function NoteComments({ noteId }: NoteCommentsProps) {
         renderItem={(comment) => (
           <List.Item
             actions={[
-              comment.userId === currentUser?.userId && (
+              String(comment.userId) === currentUser?.userId && (
                 <Button
                   type="link"
                   danger

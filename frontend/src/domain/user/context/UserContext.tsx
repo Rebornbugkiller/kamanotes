@@ -1,12 +1,11 @@
 import React, { createContext, useState, useEffect } from 'react'
-import { User } from '../types/types'
+import { UserState } from '../types/types'
 import { userService } from '../service/userService'
 import { TOKEN_KEY } from '../../../base/constants'
-import { message } from 'antd'
 
 interface UserContextType {
-  currentUser: User | null
-  setCurrentUser: (user: User | null) => void
+  currentUser: UserState | null
+  setCurrentUser: (user: UserState | null) => void
   reloadUser: () => Promise<void>
 }
 
@@ -19,7 +18,7 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [currentUser, setCurrentUser] = useState<User | null>(() => {
+  const [currentUser, setCurrentUser] = useState<UserState | null>(() => {
     // 尝试从 localStorage 获取用户信息
     const savedUser = localStorage.getItem('currentUser')
     return savedUser ? JSON.parse(savedUser) : null
@@ -78,7 +77,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const contextValue = {
     currentUser,
-    setCurrentUser: (user: User | null) => {
+    setCurrentUser: (user: UserState | null) => {
       console.log('设置用户状态:', user)
       setCurrentUser(user)
       if (!user) {
